@@ -24,6 +24,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
+        "illuminate/database": "^9.0",
         "monolog/monolog": "^2.9",
         "php-di/php-di": "^6.4",
         "slim/psr7": "^1.6",
@@ -39,6 +40,7 @@
     },
     "config": {
         "allow-plugins": {
+            "kylekatarnls/update-helper": true,
             "phpstan/extension-installer": true
         },
         "process-timeout": 0,
