@@ -22,6 +22,9 @@ return function (ContainerBuilder $containerBuilder) {
                         : __DIR__ . '/../logs/app.log',
                     'level' => Logger::DEBUG,
                 ],
+                //temporary-secret-key
+                'jwt.secret_key' =>
+                    'a247e19d0ac4c080a45c77187ad29506e59fdc7b81839820a7fc50618e2dfa61',
                 // Slim Settings
                 'determineRouteBeforeAppMiddleware' => false,
                 'db' => [

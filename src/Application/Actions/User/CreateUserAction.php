@@ -15,12 +15,11 @@ class CreateUserAction extends UserAction
     protected function action(): Response
     {
         $data = $this->request->getParsedBody();
-        $newUser = new User();
-        $newUser->username = $data['username'];
-        $newUser->password = password_hash($data['password'], PASSWORD_BCRYPT);
-        $newUser->fullname = $data['fullname'];
-        $newUser->save();
-
-        return $this->respondWithData($newUser->id);
+        $newId = $this->userRepository->create(
+            $data['username'],
+            $data['password'],
+            $data['fullname'],
+        );
+        return $this->respondWithData($newId);
     }
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\Authentication\LoginAction;
 use App\Application\Actions\User\CreateUserAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
@@ -11,10 +12,7 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (App $app) {
-    $app->options('/{routes:.*}', function (
-        Request $request,
-        Response $response,
-    ) {
+    $app->options('/{routes:.*}', function (Request $request, Response $response) {
         // CORS Pre-Flight OPTIONS Request Handler
         return $response;
     });
@@ -27,5 +25,9 @@ return function (App $app) {
     $app->group('/users', function (Group $group) {
         $group->get('', ListUsersAction::class);
         $group->post('', CreateUserAction::class);
+    });
+
+    $app->group('/auth', function (Group $group) {
+        $group->post('/login', LoginAction::class);
     });
 };

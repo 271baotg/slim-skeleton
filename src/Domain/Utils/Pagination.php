@@ -4,11 +4,33 @@ declare(strict_types=1);
 
 namespace App\Domain\Utils;
 
-class Pagination
+use JsonSerializable;
+
+class Pagination implements JsonSerializable
 {
     private int $page = 1;
     private int $pageSize = 5;
     private int $maxPageSize = 50;
+
+    public function getPage(): int
+    {
+        return $this->page;
+    }
+
+    public function setPage(int $page)
+    {
+        $this->page = $page;
+    }
+
+    public function getPageSize(): int
+    {
+        return $this->pageSize;
+    }
+
+    public function setPageSize(int $pageSize)
+    {
+        $this->pageSize = $pageSize;
+    }
 
     public static function validate(
         Pagination $pagination,
@@ -33,5 +55,16 @@ class Pagination
         ) {
             $pagination->pageSize = $defaultPageSize;
         }
+
+        return $pagination;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'page' => $this->page,
+            'pageSize' => $this->pageSize,
+            'maxPageSize' => $this->maxPageSize,
+        ];
     }
 }
