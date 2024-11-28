@@ -1,18 +1,12 @@
 <?php
-
 declare(strict_types=1);
 
 use App\Application\Settings\Settings;
 use App\Application\Settings\SettingsInterface;
 use DI\ContainerBuilder;
-use Dotenv\Dotenv;
 use Monolog\Logger;
 
 return function (ContainerBuilder $containerBuilder) {
-    // Load environment variables
-    $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-    $dotenv->load();
-
     // Global Settings Object
     $containerBuilder->addDefinitions([
         SettingsInterface::class => function () {
@@ -25,20 +19,18 @@ return function (ContainerBuilder $containerBuilder) {
                     'path' => isset($_ENV['docker']) ? 'php://stdout' : __DIR__ . '/../logs/app.log',
                     'level' => Logger::DEBUG,
                 ],
-                // Secret Key from environment
-                'jwt.secret_key' => getenv('JWT_SECRET_KEY'),
+                //temporary-secret-key
+                'jwt.secret_key' => 'a247e19d0ac4c080a45c77187ad29506e59fdc7b81839820a7fc50618e2dfa61',
                 // Slim Settings
                 'determineRouteBeforeAppMiddleware' => false,
-                // Database settings from environment
                 'db' => [
-                    'driver' => getenv('DB_DRIVER'),
-                    'host' => getenv('DB_HOST'),
-                    'database' => getenv('DB_DATABASE'),
-                    'username' => getenv('DB_USERNAME'),
-                    'password' => getenv('DB_PASSWORD'),
-                    'charset' => getenv('DB_CHARSET'),
-                    'collation' => getenv('DB_COLLATION'),
-
+                    'driver' => 'mysql',
+                    'host' => 'localhost',
+                    'database' => 'user_management',
+                    'username' => 'root',
+                    'password' => 'giabao2017',
+                    'charset' => 'utf8',
+                    'collation' => 'utf8_unicode_ci',
                     'prefix' => '',
                 ],
             ]);
