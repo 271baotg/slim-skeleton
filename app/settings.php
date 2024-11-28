@@ -26,18 +26,19 @@ return function (ContainerBuilder $containerBuilder) {
                     'level' => Logger::DEBUG,
                 ],
                 // Secret Key from environment
-                'jwt.secret_key' => $_ENV['JWT_SECRET_KEY'],
+                'jwt.secret_key' => getenv('JWT_SECRET_KEY'),
                 // Slim Settings
                 'determineRouteBeforeAppMiddleware' => false,
                 // Database settings from environment
                 'db' => [
-                    'driver' => $_ENV['DB_DRIVER'],
-                    'host' => $_ENV['DB_HOST'],
-                    'database' => $_ENV['DB_DATABASE'],
-                    'username' => $_ENV['DB_USERNAME'],
-                    'password' => $_ENV['DB_PASSWORD'],
-                    'charset' => $_ENV['DB_CHARSET'],
-                    'collation' => $_ENV['DB_COLLATION'],
+                    'driver' => getenv('DB_DRIVER'),
+                    'host' => getenv('DB_HOST'),
+                    'database' => getenv('DB_DATABASE'),
+                    'username' => getenv('DB_USERNAME'),
+                    'password' => getenv('DB_PASSWORD'),
+                    'charset' => getenv('DB_CHARSET'),
+                    'collation' => getenv('DB_COLLATION'),
+
                     'prefix' => '',
                 ],
             ]);
