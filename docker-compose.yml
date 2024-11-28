@@ -10,9 +10,17 @@ services:
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
-            docker: "true"
+            docker: 'true'
         ports:
-            - "8080:8080"
+            - '8080:8080'
         volumes:
             - .:/var/www
             - logs:/var/www/logs
+
+    mysql:
+        image: mysql:8.0
+    ports:
+        - '3306:3306'
+
+    volumes:
+        - mysql-volume:/var/lib/mysql

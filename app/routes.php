@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Application\Actions\Authentication\LoginAction;
+use App\Application\Actions\Authentication\RegisterAction;
 use App\Application\Actions\User\CreateUserAction;
 use App\Application\Actions\User\ListUsersAction;
 use App\Application\Actions\User\ViewUserAction;
@@ -29,5 +30,6 @@ return function (App $app) {
 
     $app->group('/auth', function (Group $group) {
         $group->post('/login', LoginAction::class);
+        $group->post('/register', RegisterAction::class);
     });
 };

@@ -32,11 +32,8 @@ abstract class Action
      * @throws HttpNotFoundException
      * @throws HttpBadRequestException
      */
-    public function __invoke(
-        Request $request,
-        Response $response,
-        array $args,
-    ): Response {
+    public function __invoke(Request $request, Response $response, array $args): Response
+    {
         $this->request = $request;
         $this->response = $response;
         $this->args = $args;
@@ -71,10 +68,7 @@ abstract class Action
     protected function resolveArg(string $name)
     {
         if (!isset($this->args[$name])) {
-            throw new HttpBadRequestException(
-                $this->request,
-                "Could not resolve argument `{$name}`.",
-            );
+            throw new HttpBadRequestException($this->request, "Could not resolve argument `{$name}`.");
         }
 
         return $this->args[$name];
@@ -83,10 +77,8 @@ abstract class Action
     /**
      * @param array|object|null $result
      */
-    protected function respondWithData(
-        $result = null,
-        int $statusCode = 200,
-    ): Response {
+    protected function respondWithData($result = null, int $statusCode = 200): Response
+    {
         $payload = new ActionPayload($statusCode, $result);
 
         return $this->respond($payload);
@@ -97,8 +89,6 @@ abstract class Action
         $json = json_encode($payload, JSON_PRETTY_PRINT);
         $this->response->getBody()->write($json);
 
-        return $this->response
-            ->withHeader('Content-Type', 'application/json')
-            ->withStatus($payload->getStatusCode());
+        return $this->response->withHeader('Content-Type', 'application/json')->withStatus($payload->getStatusCode());
     }
 }

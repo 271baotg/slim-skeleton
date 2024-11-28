@@ -57,10 +57,8 @@ class JwtMiddleware implements Middleware
         try {
             // Decode the JWT
             $decoded = JWT::decode($token, new Key($this->secretKey, 'HS256'));
-            // If decoding is successful, set the user data in the request
             $request = $request->withAttribute('user', (array) $decoded);
         } catch (\Exception $e) {
-            // If token is invalid, return unauthorized response
             return $this->unauthorizedResponse($request);
         }
 
