@@ -3,6 +3,8 @@ version: '3.7'
 volumes:
     logs:
         driver: local
+    mysql-volume:
+        driver: local
 
 services:
     slim:
@@ -12,15 +14,18 @@ services:
         environment:
             docker: 'true'
         ports:
-            - '8080:8080'
+            - '8080:8081'
         volumes:
             - .:/var/www
             - logs:/var/www/logs
 
     mysql:
         image: mysql:8.0
-    ports:
-        - '3306:3306'
-
-    volumes:
-        - mysql-volume:/var/lib/mysql
+        container_name: slim-mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: yourpassword
+            MYSQL_DATABASE: yourdatabase
+        ports:
+            - '3306:3306'
+        volumes:
+            - mysql-volume:/var/lib/mysql
