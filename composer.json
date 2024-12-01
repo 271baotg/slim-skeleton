@@ -25,7 +25,7 @@
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "darkaonline/l5-swagger": "^2.1",
-        "doctrine/annotations": "^1.14",
+        "doctrine/annotations": "^2.0",
         "firebase/php-jwt": "^6.10",
         "illuminate/database": "^9.0",
         "monolog/monolog": "^2.9",
